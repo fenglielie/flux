@@ -9,6 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 zero_setup()
 zero_check()
 
+include(cmake/check_features.cmake)
 
 add_subdirectory(src)
 
@@ -22,8 +23,8 @@ if(BUILD_TESTING)
 
     FetchContent_Declare(
         googletest
-        URL https://github.com/google/googletest/releases/download/v1.17.0/googletest-1.17.0.tar.gz
         DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+        URL https://github.com/google/googletest/releases/download/v1.17.0/googletest-1.17.0.tar.gz
     )
 
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)

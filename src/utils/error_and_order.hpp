@@ -6,7 +6,12 @@
 #include <iostream>
 #include <vector>
 
+#if __has_include(<format>)
 #include <format>
+#define USE_FORMAT
+#else
+#include <iomanip>
+#endif
 
 namespace flux {
 
@@ -63,6 +68,8 @@ inline std::vector<double> order(const std::vector<double> &error,
     return result;
 }
 
+#ifdef USE_FORMAT
+
 inline void print_error_table(
     std::ostream &out, const std::vector<size_t> &nlist,
     const std::vector<double> &error_l1, const std::vector<double> &error_l2,
@@ -89,6 +96,38 @@ inline void print_error_table(
     out << std::endl;
     return;
 }
+
+#else
+
+inline void print_error_table(
+    std::ostream &out, const std::vector<size_t> &nlist,
+    const std::vector<double> &error_l1, const std::vector<double> &error_l2,
+    const std::vector<double> &error_linf, const std::vector<double> &order_l1,
+    const std::vector<double> &order_l2, const std::vector<double> &order_linf,
+    char delimiter) {
+    out << std::setw(5) << "n" << delimiter << std::setw(12) << "error_1"
+        << delimiter << std::setw(8) << "order" << delimiter << std::setw(12)
+        << "error_2" << delimiter << std::setw(8) << "order" << delimiter
+        << std::setw(12) << "error_inf" << delimiter << std::setw(8) << "order"
+        << "\n";
+
+    for (size_t i = 0; i < nlist.size(); ++i) {
+        out << std::setw(5) << nlist[i] << delimiter << std::scientific
+            << std::setw(12) << std::setprecision(2) << error_l1[i] << delimiter
+            << std::fixed << std::setw(8) << std::setprecision(2) << order_l1[i]
+            << delimiter << std::scientific << std::setw(12)
+            << std::setprecision(2) << error_l2[i] << delimiter << std::fixed
+            << std::setw(8) << std::setprecision(2) << order_l2[i] << delimiter
+            << std::scientific << std::setw(12) << std::setprecision(2)
+            << error_linf[i] << delimiter << std::fixed << std::setw(8)
+            << std::setprecision(2) << order_linf[i] << "\n";
+    }
+
+    out << std::endl;
+    return;
+}
+
+#endif
 
 inline void print_error_table_to_file(
     const std::string &file_name, const std::vector<size_t> &nlist,

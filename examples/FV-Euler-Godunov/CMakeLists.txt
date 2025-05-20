@@ -1,8 +1,13 @@
-add_executable(example_fv_godunov_n)
-target_sources(example_fv_godunov_n PRIVATE fv_godunov_n.cpp)
-target_link_libraries(example_fv_godunov_n PRIVATE flux::base flux::utils)
-target_compile_definitions(example_fv_godunov_n PRIVATE OUTPUT_DIR="${EXAMPLE_OUTPUT_DIR}/FV-Euler-Godunov")
-zero_check_target(example_fv_godunov_n)
+if(HAS_DEDUCING_THIS)
+    add_executable(example_fv_godunov_n)
+    target_sources(example_fv_godunov_n PRIVATE fv_godunov_n.cpp)
+    target_link_libraries(example_fv_godunov_n PRIVATE flux::base flux::utils)
+    target_compile_definitions(example_fv_godunov_n PRIVATE OUTPUT_DIR="${EXAMPLE_OUTPUT_DIR}/FV-Euler-Godunov")
+    zero_check_target(example_fv_godunov_n)
+else()
+    message(WARNING "Deducing this is not supported, skipping example_fv_godunov_n")
+endif()
+
 
 add_executable(example_fv_godunov_c)
 target_sources(example_fv_godunov_c PRIVATE fv_godunov_c.cpp)
