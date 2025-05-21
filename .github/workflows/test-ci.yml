@@ -15,12 +15,12 @@ env:
 
 jobs:
   run-bvt-gcc14:
-    uses: fenglielie/cmakezero/.github/workflows/bvt-gcc14.yml@main
-    name: run bvt with g++ 14
+    uses: fenglielie/cmakezero/.github/workflows/bvt-gcc13.yml@main
+    name: run bvt with g++ 13
 
   run-bvt-clang20:
-    uses: fenglielie/cmakezero/.github/workflows/bvt-clang20.yml@main
-    name: run bvt with clang 20
+    uses: fenglielie/cmakezero/.github/workflows/bvt-clang18.yml@main
+    name: run bvt with clang 18
 
   run-bvt-msvc14:
     uses: fenglielie/cmakezero/.github/workflows/bvt-msvc14.yml@main

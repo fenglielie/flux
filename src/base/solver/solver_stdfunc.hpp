@@ -1,10 +1,10 @@
 #pragma once
 
-#include <expected>
 #include <functional>
 #include <limits>
 #include <string>
 
+#include "expected.hpp"
 #include "requires.h"
 
 namespace flux::solver_stdfunc {
@@ -21,9 +21,9 @@ public:
     }
 
     auto run(VarType var, ExType &ex, double t0,
-             double tend) const -> std::expected<VarType, std::string> {
+             double tend) const -> flux::expected<VarType, std::string> {
         if (m_update == nullptr) {
-            return std::unexpected("update function is not set");
+            return flux::unexpected{std::string{"update function is not set"}};
         }
 
         if (tend <= t0) return var;
@@ -34,7 +34,7 @@ public:
         for (size_t iter = 0; iter < iter_max && (!stop_flag); ++iter) {
             var = m_update(var, ex, t, stop_flag, tend);
         }
-        if (!stop_flag) { return std::unexpected{"Iteration exceeds"}; }
+        if (!stop_flag) { return flux::unexpected{std::string{"Iteration exceeds"}}; }
 
         return var;
     }
