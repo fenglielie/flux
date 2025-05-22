@@ -1,14 +1,15 @@
-# 时间推进框架
+# Time Integration Framework
 
-项目中基于C++的各种机制实现了五种通用时间推进框架（向前欧拉和SSP-RK3，支持预处理和后处理，支持扩展为其它时间离散格式），不同的框架实现各有优劣，因此全部保留：
+This project implements five C++ time integration frameworks, all supporting Forward Euler, SSP-RK3, as well as optional pre- and post-processing.
+Each framework offers different trade-offs in flexibility, complexity, and performance, so all are retained:
 
-- 运行时多态：
-  - `solver_virtual.hpp`：基于虚函数
-  - `solver_stdfunc.hpp`：基于 std::function，类型擦除
+- Runtime Polymorphism:
+  - `solver_virtual.hpp`: virtual functions
+  - `solver_stdfunc.hpp`: `std::function` (type erasure)
 
-- 编译期多态：
-  - `solver_crtp.hpp`：基于 CRTP
-  - `solver_deducing.hpp`：基于 deducing this（C++23）
-  - `solver_template.hpp`：基于模板参数
+- Compile-time Polymorphism:
+  - `solver_crtp.hpp`: CRTP
+  - `solver_deducing.hpp`: deducing this (C++23)
+  - `solver_template.hpp`: template parameters
 
-基于前两种框架的写法比较简单，但是性能偏低；基于后三种框架的写法比较复杂，但是有更好的性能。
+Runtime approaches are simpler but slower; compile-time approaches are faster but more complex.

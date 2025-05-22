@@ -2,6 +2,10 @@
 
 Computation of the Nodes and Weights for Gauss-Legendre and Gauss-Lobatto Quadrature.
 
+$$
+I(f) = \int_{-1}^1 f(x)\,dx \approx I_n(f) = \sum_{i=1}^n w_i f(x_i)
+$$
+
 Supports both compile-time and runtime computation for Gaussian quadrature rules.
 
 - compile-time version
