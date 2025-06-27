@@ -16,13 +16,13 @@ using quad3 = Quadrature3;  // NOLINT(readability-identifier-naming)
 namespace {
 double func(double x) { return x * x; }
 
-// 测试函数1: x^2 + y^2
+// x^2 + y^2
 double func1(double x, double y) { return x * x + y * y; }
 
-// 测试函数2: x * y
+// x * y
 double func2(double x, double y) { return x * y; }
 
-// 测试函数3: sin(x) * cos(y)
+// sin(x) * cos(y)
 double func3(double x, double y) { return std::sin(x) * std::cos(y); }
 }  // namespace
 
@@ -92,14 +92,14 @@ int demo2() {
     std::cout << "\nInt(sin(x) * cos(y), Triangle) = " << result
               << " (expected 0.150584)\n";
 
-    // (4) 使用自定义三角形进行积分
+    // (4)
     std::cout << "\nUsing custom Triangle (0, 0), (2, 0), (0, 3) with func1 "
                  "(x^2 + y^2): ";
     result = quad3{quad3::Builtin::P12}.intg(func1, triangle2);
     std::cout << "\nInt(x^2 + y^2, Custom Triangle) = " << result
               << " (expected 6.5)\n";
 
-    // (5) 使用不同的测试函数
+    // (5)
     std::cout << "\nUsing 12 points with func3 (sin(x) * cos(y)): ";
     result = quad3{quad3::Builtin::P12}.intg(func3, triangle1);
     std::cout << "\nInt(sin(x) * cos(y), Triangle) = " << result
